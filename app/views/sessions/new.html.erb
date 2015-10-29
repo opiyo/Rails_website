@@ -2,20 +2,23 @@
 <h1>ログイン</h1>
 
 <div class="row">
-	<div class="span6 offset3">
-		<%= form_for(:session, url: sessions_path) do |f| %>
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for(:session, url: login_path) do |f| %>
 		
 			<%= f.label :email %>
-			<%= f.text_field :email %>
+			<%= f.text_field :email, class: 'form-control' %>
 			
 			<%= f.label :password %>
-			<%= f.password_field :password %>
+			<%= f.password_field :password, class: 'form-control' %>
+			
+			<%= f.label :remember_me, class: 'checkbox inline' do %>
+				<%= f.check_box :remember_me %>
+				<span>ログインしたままにする</span>
+			<% end %>
 			
 			<%= f.submit "ログイン", class: "btn btn-large btn-primary" %>
-			
 		<% end %>
 		
 		<p><%= link_to "新規登録", signup_path %></p>
 	</div>
 </div>
-	

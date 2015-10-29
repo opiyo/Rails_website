@@ -2,11 +2,12 @@ Rails.application.routes.draw do
   root 'mains#home'
   
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  #resources :sessions, only: [:new, :create, :destroy]
 
   get 'help' => 'mains#help'
   match 'signup', to: 'users#new',           via: 'get'
   match 'login',  to: 'sessions#new',        via: 'get'
+  match 'login',  to: 'sessions#create',     via: 'post'
   match 'logout', to: 'sessions#destroy',    via: 'delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
