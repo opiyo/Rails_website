@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   resources :users
   #resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts
 
   get 'help' => 'mains#help'
   match 'signup', to: 'users#new',           via: 'get'
