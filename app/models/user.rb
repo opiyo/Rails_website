@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+	before_destroy :check_all_events_finished
+	
+	has_many :created_events, class_name: 'Event', foreign_key: :owner_id, dependent: :nullify
+	has_many :tickets, dependent: :nullify
+	has_many :participating_events, through: :tickets, source: :event
+	
 	has_many :microposts, dependent: :destroy
 	has_many :active_relationships, class_name: "Relationship",
 					foreign_key: "follower_id",
@@ -65,4 +71,19 @@ class User < ActiveRecord::Base
 	def following?(other_user)
     	following.include?(other_user)
 	end
+	
+	private
+		
+		def check_all_events_finished
+			now = Time.zone.now
+			if created_events.where(':now < end_time', now: now).exists?
+				errors[:base] << '公開中の未終了イベントが存在します'
+			end
+			
+			if participating_events.where(':now < end_time', now: now).exists?
+				errors[:base] << '未終了の参加イベントが存在します'
+			end
+			Rails.logger.debug(errors)
+			errors.blank?
+		end
 end

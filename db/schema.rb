@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102054903) do
+ActiveRecord::Schema.define(version: 20151104045420) do
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "owner_id",   limit: 4
+    t.string   "name",       limit: 255,   null: false
+    t.string   "place",      limit: 255,   null: false
+    t.datetime "start_time",               null: false
+    t.datetime "end_time",                 null: false
+    t.text     "content",    limit: 65535, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "events", ["owner_id"], name: "index_events_on_owner_id", using: :btree
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content",    limit: 65535
@@ -34,6 +47,17 @@ ActiveRecord::Schema.define(version: 20151102054903) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "event_id",   limit: 4,   null: false
+    t.string   "comment",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "tickets", ["event_id", "user_id"], name: "index_tickets_on_event_id_and_user_id", unique: true, using: :btree
+  add_index "tickets", ["user_id", "event_id"], name: "index_tickets_on_user_id_and_event_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",              limit: 255

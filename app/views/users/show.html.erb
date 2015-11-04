@@ -5,12 +5,13 @@
 			<h1>
 				<%= @user.name %>
 			</h1>
+			<section class="stats">
+				<%= render 'shared/stats' %>
+			</section>
 			<% if current_user?(@user) %>
-				<%= link_to "プロフィール編集", edit_user_path(current_user) %>
+				<p><%= link_to "プロフィール編集", edit_user_path(current_user) %></p>
+				<p><%= link_to "退会", retire_path %></p>
 			<% end %>
-		</section>
-		<section class="stats">
-			<%= render 'shared/stats' %>
 		</section>
 	</aside>
 	

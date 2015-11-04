@@ -1,20 +1,26 @@
 Rails.application.routes.draw do
 	root 'mains#home'
 	
-	#resources :users
 	resources :users do
 		member do
 			get :following, :followers
 		end
 	end
+	resources :events do
+		resources :tickets
+	end
 	resources :microposts, only: [:create, :destroy]
 	resources :relationships, only: [:create, :destroy]
+	resources :events
 	
 	get 'help' => 'mains#help'
 	match 'signup', to: 'users#new',           via: 'get'
+	match 'retire',  to: 'users#retire',         via: 'get'
 	match 'login',  to: 'sessions#new',        via: 'get'
 	match 'login',  to: 'sessions#create',     via: 'post'
 	match 'logout', to: 'sessions#destroy',    via: 'delete'
+	
+	match '*path' => 'application#error404', via: :all
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

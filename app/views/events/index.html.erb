@@ -1,0 +1,23 @@
+<div class="page-heading">
+	<h1>イベント一覧</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+		<div class="list-group">
+			<% @events.each do |event| %>
+				<%= link_to(event, class: 'list-group-item') do %>
+				<h4 class="list-groupt-item-heading">
+					<%= event.name %>
+				</h4>
+				<p class="list-group-item-text">
+					<%= event.start_time.strftime('%Y/%m/%d %H:%M') %> - <%= event.end_time.strftime('%Y/%m/%d %H:%M') %>
+				</p>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<%= link_to 'イベントを作成する', new_event_path, class: 'btn btn-info btn-lg btn-block' %>
+	</div>
+</div>
