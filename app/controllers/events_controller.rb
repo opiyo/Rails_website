@@ -15,7 +15,9 @@ class EventsController < ApplicationController
 	end
 	
 	def index
-		@events = Event.where('start_time > ?', Time.zone.now).order(:start_time)
+		@search = Event.search(params[:q])#.result.paginate(:page => params[:page])
+		@events = @search.result.paginate(:page => params[:page], :per_page => 5)
+		#@events = Event.paginate(:page => params[:page], :per_page => 30)
 	end
 	
 	def show
@@ -49,4 +51,10 @@ class EventsController < ApplicationController
 				:name, :place, :content, :start_time, :end_time
 			)
 		end
+		
+# 		def search_params
+# 			params.require(:q).permit!
+# 		rescue
+# 			{ start_time_gteq: Time.zone.now }
+# 		end
 end

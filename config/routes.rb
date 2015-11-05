@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 	resources :events do
 		resources :tickets
 	end
-	resources :microposts, only: [:create, :destroy]
+	resources :microposts, only: [:index, :create, :destroy]
 	resources :relationships, only: [:create, :destroy]
 	resources :events
 	
