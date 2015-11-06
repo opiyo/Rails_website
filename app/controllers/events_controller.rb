@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	before_action :logged_in_user, only: [:new, :create]
+	before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 	
 	def new
 		@event = current_user.created_events.build
@@ -15,9 +15,8 @@ class EventsController < ApplicationController
 	end
 	
 	def index
-		@search = Event.search(params[:q])#.result.paginate(:page => params[:page])
+		@search = Event.search(params[:q])
 		@events = @search.result.paginate(:page => params[:page], :per_page => 5)
-		#@events = Event.paginate(:page => params[:page], :per_page => 30)
 	end
 	
 	def show
@@ -51,10 +50,4 @@ class EventsController < ApplicationController
 				:name, :place, :content, :start_time, :end_time
 			)
 		end
-		
-# 		def search_params
-# 			params.require(:q).permit!
-# 		rescue
-# 			{ start_time_gteq: Time.zone.now }
-# 		end
 end
