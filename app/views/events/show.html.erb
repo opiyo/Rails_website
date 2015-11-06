@@ -3,14 +3,21 @@
 		<%= @event.name %>
 	</h1>
 </div>
+
 <div class="row">
 	<div class="col-md-8">
+		<div class="center">
+			<h1>
+			<%= image_tag @event.event_picture.url, :size => '300x300' if @event.event_picture? %>
+			</h1>
+		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				主催者
 			</div>
 			<div class="panel-body">
 				<% if @event.owner %>
+					<%= image_tag @event.owner.user_picture.url, :size => '60x60' if @event.owner.user_picture? %>
 					<%= link_to @event.owner.name, @event.owner %>
 				<% else %>
 					退会したユーザーです

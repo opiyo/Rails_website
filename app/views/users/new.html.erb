@@ -3,7 +3,7 @@
 
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<%= form_for(@user) do |f| %>
+		<%= form_for(@user, html: { multipart: true }) do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 		
 		<%= f.label :name, class: "control-label" %>
@@ -17,6 +17,10 @@
 		
 		<%= f.label :password_confirmation, "パスワード(確認用)", class: "control-label" %>
 		<%= f.password_field :password_confirmation, class: "form-control" %>
+		
+		<span class="picture">
+			<%= f.file_field :user_picture %>
+		</span>
 		
 		<%= f.submit "作成", class: "btn btn-large btn-primary" %>
 		<% end %>

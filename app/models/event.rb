@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
 	validates :start_time, presence: true
 	validates :end_time, presence: true
 	validate :start_time_should_be_before_end_time
+	mount_uploader :event_picture, EventPictureUploader
 	
 	def created_by?(user)
 		return false unless user

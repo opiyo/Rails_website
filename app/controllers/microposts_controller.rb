@@ -5,7 +5,7 @@ class MicropostsController < ApplicationController
  	def index
  		if logged_in?
 			@micropost = current_user.microposts.build
-			@feed_items = current_user.feed.paginate(page: params[:page])
+			@feed_items = current_user.feed.paginate(page: params[:page], :per_page => 10)
 		else
 			@microposts = Micropost.paginate(page: params[:page], :per_page => 5)
 		end
@@ -15,10 +15,10 @@ class MicropostsController < ApplicationController
 		@micropost = current_user.microposts.build(micropost_params)
 		if @micropost.save
 			flash[:success] = "Micropost created!"
-			redirect_to root_url
+			redirect_to microposts_url
 		else
 			@feed_items = []
-			render 'mains/home'
+			render microposts_url
 		end
 	end
 	

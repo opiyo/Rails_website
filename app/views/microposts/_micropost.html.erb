@@ -1,7 +1,11 @@
-<li id="micropost-<%= micropost.id %>">
-	<span class="user">
-		<%= link_to micropost.user.name, micropost.user %>
-	</span>
+<li id="micropost-<%= micropost.id %>" div style="clear:both;">
+	<div style="float:left;">
+		<span class="user">
+			<%= image_tag micropost.user.user_picture.url, :size => '60x60' if micropost.user.user_picture? %>
+			<%= link_to micropost.user.name, micropost.user %>
+		</span>
+	</div>
+	<div style="float:left;">
 	<span class="content">
 		<%= micropost.content %>
 		<%= image_tag micropost.picture.url if micropost.picture? %>
@@ -13,4 +17,5 @@
 				data: { confirm: "削除します。よろしいですか？" } %>
 		<% end %>
 	</span>
+	</div>
 </li>

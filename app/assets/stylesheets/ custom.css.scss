@@ -293,3 +293,14 @@ span.picture {
 	display: inline-block;
 	width: auto;
 }
+
+/* events */
+
+.events {
+  list-style: none;
+  padding: 0;
+  .picture {
+    float: left;
+    margin-right: 10px;
+  }
+}

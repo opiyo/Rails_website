@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	before_destroy :check_all_events_finished
+	mount_uploader :user_picture, UserPictureUploader
 	
 	has_many :created_events, class_name: 'Event', foreign_key: :owner_id, dependent: :nullify
 	has_many :tickets, dependent: :nullify
@@ -24,6 +25,7 @@ class User < ActiveRecord::Base
 		uniqueness: { case_sensitive: false }
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+	validate :user_picture_size
 	
 	#与えられた文字列のハッシュ値を返す
 	def User.digest(string)
@@ -85,5 +87,11 @@ class User < ActiveRecord::Base
 			end
 			Rails.logger.debug(errors)
 			errors.blank?
+		end
+		
+		def user_picture_size
+			if user_picture.size > 5.megabytes
+				errrors.add(:picture, "should be less than 5MB")
+			end	
 		end
 end

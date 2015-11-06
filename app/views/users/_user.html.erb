@@ -1,3 +1,4 @@
 <li>
+	<%= image_tag user.user_picture.url, :size => '60x60' if user.user_picture? %>
 	<%= link_to user.name, user %>
 </li>

@@ -1,3 +1,4 @@
+<%= image_tag current_user.user_picture.url if current_user.user_picture? %>
 <h1><%= current_user.name %></h1>
 <span><%= link_to "マイプロフィール", current_user %></span>
 <span><%= pluralize(current_user.microposts.count, "micropost") %></span>

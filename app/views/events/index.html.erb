@@ -9,12 +9,17 @@
 		<div class="list-group">
 			<% @events.each do |event| %>
 				<%= link_to(event, class: 'list-group-item') do %>
-				<h4 class="list-groupt-item-heading">
-					<%= event.name %>
-				</h4>
-				<p class="list-group-item-text">
-					<%= event.start_time.strftime('%Y/%m/%d %H:%M') %> - <%= event.end_time.strftime('%Y/%m/%d %H:%M') %>
-				</p>
+					<div class="events">
+						<div class="picture">
+							<%= image_tag event.event_picture.url, :size => '60x60' if event.event_picture? %>
+						</div>
+					</div>
+					<h4 class="list-groupt-item-heading">
+						<%= event.name %>
+					</h4>
+					<p class="list-group-item-text">
+						<%= event.start_time.strftime('%Y/%m/%d %H:%M') %> - <%= event.end_time.strftime('%Y/%m/%d %H:%M') %>
+					</p>
 				<% end %>
 			<% end %>
 			<%= will_paginate @events %>
